@@ -1,0 +1,69 @@
+[
+  {
+    "name": "alpha",
+    "ports": [
+      {
+        "name": "ge-1/1/0",
+        "vlans": [
+          {
+            "vlanId": 10,
+            "customer": 1
+          },
+          {
+            "vlanId": 20,
+            "customer": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beta",
+    "ports": [
+      {
+        "name": "ge-2/1/0",
+        "vlans": [
+          {
+            "vlanId": 50,
+            "customer": 3
+          },
+          {
+            "vlanId": 201,
+            "customer": 3
+          }
+        ]
+      },
+      {
+        "name": "ge-3/1/0",
+        "vlans": [
+          {
+            "vlanId": 102,
+            "customer": 3
+          },
+          {
+            "vlanId": 105,
+            "customer": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "gamma",
+    "ports": [
+      {
+        "name": "ge-2/1/0",
+        "vlans": [
+          {
+            "vlanId": 1331,
+            "customer": 1
+          },
+          {
+            "vlanId": 401,
+            "customer": 2
+          }
+        ]
+      }
+    ]
+  }
+]
