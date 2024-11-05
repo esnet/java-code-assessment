@@ -1,0 +1,98 @@
+====================================================================
+General Info
+====================================================================
+Start at Main.java.
+
+Class definitions at Router.java and IntRange.java
+
+The JSON data in input/data.json deserializes into a Router[].
+
+Feel free to add / edit files as necessary.
+
+
+====================================================================
+Task 1
+====================================================================
+Print out a report by customer-id, including all the
+router / port / vlan ids the customer-id is associated with:
+
+Report format:
+=============
+<customer-id>
+- <router-name> : <port-name> : <vlan-id>
+- <router-name> : <port-name> : <vlan-id>
+- <router-name> : <port-name> : <vlan-id>
+... (more router-port-vlan entries)
+<customer-id>
+- <router-name> : <port-name> : <vlan-id>
+- <router-name> : <port-name> : <vlan-id>
+
+
+Sample output
+=============
+customer 1:
+- alpha : ge-1/1/0 : 10
+- beta : ge-2/1/0 : 103
+- beta : ge-2/1/0 : 105
+
+customer 2:
+...
+====================================================================
+
+
+
+
+====================================================================
+Task 2
+====================================================================
+
+Modify EthernetPort and Vlan classes so that:
+
+- The Vlan.vlanId field MUST be in the range of 0 through 4095, inclusive.
+
+- For an EthernetPort instance...
+  - An EthernetPort instance MUST have from 0 through 4096 Vlan entries.
+  - All Vlan instances belonging to it MUST have different vlanId fields
+  from each other.
+
+
+
+====================================================================
+Task 3
+====================================================================
+
+For an EthernetPort instance we define two sets of integers representing
+vlan-ids as follows:
+
+- "in-use" vlan-ids is the set of all Vlan.vlanIds that are found in
+the EthernetPort's vlans list,
+- "free" vlan-ids is the set of all Vlan.vlanIds in the [0, 4095] range
+that are not in the "in-use" set
+
+Generate these sets in EthernetPort.inUseVlanIds() and .freeVlanIds()
+
+
+Example:
+in-use set: { 10, 12, 13, 20, 4095 }
+free set: { 0, 1, ..., 9, 11, 14, ...., 4094 }
+
+
+
+====================================================================
+Task 4
+====================================================================
+Implement EthernetPort.freeVlanRanges(); you will need to transform the
+set of free vlan-ids from Task 3 to a set of IntRange objects.
+
+
+
+Example:
+free set: { 0, 1, ..., 9, 11, 14, ...., 4094 }
+output:
+[
+  { floor: 0, ceiling: 9 }
+  { floor: 11, ceiling: 11 }
+  { floor: 14, ceiling: 4094 }
+]
+
+

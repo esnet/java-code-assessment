@@ -27,6 +27,18 @@ public class Router {
     public static class EthernetPort {
         public String name;
         public List<Vlan> vlans;
+
+        Set<Integer> inUseVlanIds() {
+            return null;
+        }
+
+        Set<Integer> getFreeVlanIds() {
+            return null;
+        }
+        Set<IntRange> freeVlanRanges() {
+            return null;
+        }
+
     }
     /*
       holds data about a particular Vlan, specifically the vlan-id (0-4095) and the customer id
