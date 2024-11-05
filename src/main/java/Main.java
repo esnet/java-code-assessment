@@ -3,33 +3,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("\n\n\n");
-        Router[] routers = {};
 
+        // Deserializes a JSON file into an array of Router objects
+        Router[] routers = {};
         try {
             InputStream is = new FileInputStream("input/data.json");
-
             routers = new ObjectMapper().readValue(is, Router[].class);
         } catch (Exception ex) {
             System.out.println("An exception!" + ex.getMessage());
         }
 
-
-        // sample code
+        // print out router names
         for (Router r : routers) {
             System.out.println(r.getName());
         }
-        // add your own logic here
 
 
+        // Candidate code goes here
+
+
+
+        /* Data structure reference
+
+        Router
+          String name
+          List<EthernetPort> ports
+            String name
+            List<Vlan> vlans
+              int vlanId
+              int customer
+         */
 
         System.out.println("\n\n\n");
     }

@@ -1,31 +1,67 @@
 ====================================================================
 General Info
 ====================================================================
-Start at Main.java.
+mvn exec:java or build-and-run.sh will compile and run the code
 
-Class definitions at Router.java and IntRange.java
+- Entrypoint is at Main.java; see other class files for detailed
+definitions.
 
-The JSON data in input/data.json deserializes into a Router[].
+- See input/data.json for input
 
-Feel free to add / edit files as necessary.
+You can..
+- add modify files as they please
+- ask questions for clarifications
+
+
+=======================
+Data structure overview
+=======================
+Router
+  String name
+  List<EthernetPort> ports
+    String name
+    List<Vlan> vlans
+      int vlanId
+      int customer
+
 
 
 ====================================================================
-Task 1
+    Task 1
 ====================================================================
-Print out a report by customer-id, including all the
-router / port / vlan ids the customer-id is associated with:
+Generate and output a report for the provided input. The report
+is separated into sections by customer.
+
+Each section contains multiple rows, one each per combination of
+router / port / vlan ids that customer-id was present at.
 
 Report format:
 =============
-<customer-id>
+customer <customer-id>
 - <router-name> : <port-name> : <vlan-id>
 - <router-name> : <port-name> : <vlan-id>
 - <router-name> : <port-name> : <vlan-id>
-... (more router-port-vlan entries)
-<customer-id>
-- <router-name> : <port-name> : <vlan-id>
-- <router-name> : <port-name> : <vlan-id>
+  ... (more router-port-vlanId entries)
+... (more customer sections)
+
+
+Sample input
+=============
+[
+{ name: alpha
+  ports: [ {
+      name: ge-1/1/0
+      vlans: [
+        { vlanId: 10, customer 1 }
+        { vlanId: 15, customer 2 }
+      ] } ] },
+{ name: alpha
+  ports: [ {
+      name: ge-2/1/0
+      vlans: [
+        { vlanId: 103, customer 1 }
+        { vlanId: 25, customer 1 }
+      ] } ] }]
 
 
 Sample output
@@ -33,44 +69,38 @@ Sample output
 customer 1:
 - alpha : ge-1/1/0 : 10
 - beta : ge-2/1/0 : 103
-- beta : ge-2/1/0 : 105
+- beta : ge-2/1/0 : 25
 
 customer 2:
-...
-====================================================================
+- alpha : ge-1/1/0 : 15
 
 
 
 
 ====================================================================
-Task 2
+    Task 2
 ====================================================================
 
-Modify EthernetPort and Vlan classes so that:
-
-- The Vlan.vlanId field MUST be in the range of 0 through 4095, inclusive.
-
-- For an EthernetPort instance...
-  - An EthernetPort instance MUST have from 0 through 4096 Vlan entries.
+Modify the EthernetPort class so that:
+  - An EthernetPort instance MUST NOT have more than 4096 Vlan entries.
   - All Vlan instances belonging to it MUST have different vlanId fields
-  from each other.
+from each other.
 
+Method signatures in EthernetPort should stay the same.
 
 
 ====================================================================
-Task 3
+    Task 3
 ====================================================================
-
 For an EthernetPort instance we define two sets of integers representing
 vlan-ids as follows:
 
 - "in-use" vlan-ids is the set of all Vlan.vlanIds that are found in
 the EthernetPort's vlans list,
 - "free" vlan-ids is the set of all Vlan.vlanIds in the [0, 4095] range
-that are not in the "in-use" set
+that are NOT in the "in-use" set
 
-Generate these sets in EthernetPort.inUseVlanIds() and .freeVlanIds()
-
+Generate these sets in EthernetPort.inUseVlanIds() and .freeVlanIds().
 
 Example:
 in-use set: { 10, 12, 13, 20, 4095 }
@@ -79,20 +109,28 @@ free set: { 0, 1, ..., 9, 11, 14, ...., 4094 }
 
 
 ====================================================================
-Task 4
+    Task 4
 ====================================================================
-Implement EthernetPort.freeVlanRanges(); you will need to transform the
-set of free vlan-ids from Task 3 to a set of IntRange objects.
+We provide the IntRange class, which represents a continuous range
+of integers defined by a floor and a ceiling. The floor and ceiling
+values both do belong to the range.
 
+A set of integers can be represented uniquely by a set of IntRanges, i.e:
 
-
-Example:
-free set: { 0, 1, ..., 9, 11, 14, ...., 4094 }
+input: { 1, 0, 2, 3, 4, 8, 10, 11, 12 }
 output:
 [
-  { floor: 0, ceiling: 9 }
-  { floor: 11, ceiling: 11 }
-  { floor: 14, ceiling: 4094 }
+  { floor: 0, ceiling: 4 }
+  { floor: 8, ceiling: 8 }
+  { floor: 10, ceiling: 12 }
 ]
+
+Implement this transformation in EthernetPort.freeVlanRanges()
+
+For bonus points, tie everything together and use IntRange.humanReadable()
+to print out the free vlan ranges per port for the data in input.json .
+
+
+
 
 
