@@ -28,6 +28,10 @@ public class Router {
         public String name;
         public List<Vlan> vlans;
 
+        public List<Vlan> getVlans() {
+            return this.vlans;
+        }
+
         Set<Integer> inUseVlanIds() {
             return null;
         }
