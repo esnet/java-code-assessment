@@ -7,7 +7,7 @@
  */
 
 public record Vlan(int vlanId, int customer) {
-    public static int MAX_VLAN_ID = 4096;
+    public static int MAX_VLAN_ID = 4095;
     public static int MIN_VLAN_ID = 0;
 
 

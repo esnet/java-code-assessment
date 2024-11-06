@@ -20,8 +20,9 @@ public class EthernetPort {
         return name;
     }
 
-    public void addVlan(Vlan vlan) {
+    public boolean addVlan(Vlan vlan) {
         this.vlans.add(vlan);
+        return true;
     }
 
     public Set<Integer> inUseVlanIds() {
