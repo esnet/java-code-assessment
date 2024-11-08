@@ -16,64 +16,60 @@ You can..
 =======================
 Data structure overview
 =======================
-Router
+EthernetPort
   String name
-  List<EthernetPort> ports
-    String name
-    List<Vlan> vlans
-      int vlanId
-      int customer
+  List<Vlan> vlans
+    int vlanId
+    int customer
 
 
 
 ====================================================================
     Task 1
 ====================================================================
-Generate and output a report for the provided input. The report
-is separated into sections by customer.
+In Main.java we load some input data by deserializing input/data.json
+into an EthernetPort[].
 
-Each section contains multiple rows, one each per combination of
-router / port / vlan ids that customer-id was present at.
+Generate and output a report for that input.
+
+The report is separated into sections by customer. Each section
+contains multiple rows, one each per combination of port / vlan ids
+that customer was present at.
 
 Report format:
 =============
-customer <customer-id>
-- <router-name> : <port-name> : <vlan-id>
-- <router-name> : <port-name> : <vlan-id>
-- <router-name> : <port-name> : <vlan-id>
-  ... (more router-port-vlanId entries)
+Customer <customer>
+- <port-name> : <vlan-id>
+- <port-name> : <vlan-id>
+  ... (more port-name:vlanId entries)
 ... (more customer sections)
 
 
 Sample input
 =============
-[
-{ name: alpha
-  ports: [ {
-      name: ge-1/1/0
-      vlans: [
-        { vlanId: 10, customer 1 }
-        { vlanId: 15, customer 2 }
-      ] } ] },
-{ name: alpha
-  ports: [ {
-      name: ge-2/1/0
-      vlans: [
-        { vlanId: 103, customer 1 }
-        { vlanId: 25, customer 1 }
-      ] } ] }]
+[ {
+  name: ge-1/1/0
+  vlans: [
+    { vlanId: 10, customer 1 }
+    { vlanId: 15, customer 2 }
+    { vlanId: 103, customer 1 }
+  name: xe-1/0/0
+  vlans: [
+    { vlanId: 25, customer 2 }
+    { vlanId: 554, customer 1 }
+
 
 
 Sample output
 =============
-customer 1:
-- alpha : ge-1/1/0 : 10
-- beta : ge-2/1/0 : 103
-- beta : ge-2/1/0 : 25
+Customer 1
+-  ge-1/1/0 : 10
+-  ge-1/1/0 : 103
+-  xe-1/0/0 : 554
 
-customer 2:
-- alpha : ge-1/1/0 : 15
-
+Customer 2
+-  ge-1/1/0 : 15
+-  xe-1/0/0 : 25
 
 
 
