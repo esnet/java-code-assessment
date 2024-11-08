@@ -78,7 +78,7 @@ Customer 2
 ====================================================================
 
 Modify the EthernetPort class so that:
-  - An EthernetPort instance MUST NOT have more than 4096 Vlan entries.
+  - An EthernetPort instance MUST NOT have more than 512 Vlan entries.
   - All Vlan instances belonging to it MUST have different vlanId fields
 from each other.
 
