@@ -7,7 +7,7 @@
 
     <groupId>net.es</groupId>
     <artifactId>java-code-assessment</artifactId>
-    <version>1.5</version>
+    <version>1.4</version>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>

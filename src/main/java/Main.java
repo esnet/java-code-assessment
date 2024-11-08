@@ -11,17 +11,17 @@ public class Main {
         System.out.println("\n\n\n");
 
         // Deserializes a JSON file into an array of Router objects
-        EthernetPort[] ports = {};
+        Router[] routers = {};
         try {
             InputStream is = new FileInputStream("input/data.json");
-            ports = new ObjectMapper().readValue(is, EthernetPort[].class);
+            routers = new ObjectMapper().readValue(is, Router[].class);
         } catch (Exception ex) {
             System.out.println("An exception!" + ex.getMessage());
         }
 
         // print out router names
-        for (EthernetPort p : ports) {
-            System.out.println(p.getName());
+        for (Router r : routers) {
+            System.out.println(r.getName());
         }
 
 
@@ -31,12 +31,13 @@ public class Main {
 
         /* Data structure reference
 
-        EthernetPort
+        Router
           String name
-          List<Vlan> vlans
-            int vlanId
-            int customer
-
+          List<EthernetPort> ports
+            String name
+            List<Vlan> vlans
+              int vlanId
+              int customer
          */
 
         System.out.println("\n\n\n");
